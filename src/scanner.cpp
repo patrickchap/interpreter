@@ -20,15 +20,19 @@ void Scanner::scanToken() {
   switch (c) {
   case '(':
     addToken(TokenType::LEFT_PAREN);
+    std::cout << "LEFT_PAREN ( null" << std::endl;
     break;
   case ')':
     addToken(TokenType::RIGHT_PAREN);
+    std::cout << "RIGHT_PAREN ) null" << std::endl;
     break;
   case '{':
     addToken(TokenType::LEFT_BRACE);
+    std::cout << "LEFT_BRACE { null" << std::endl;
     break;
   case '}':
     addToken(TokenType::RIGHT_BRACE);
+    std::cout << "RIGHT_BRACE } null" << std::endl;
     break;
   case ',':
     addToken(TokenType::COMMA);
@@ -55,4 +59,3 @@ void Scanner::scanToken() {
 }
 
 const std::vector<Token> &Scanner::getTokens() const { return tokens; }
-

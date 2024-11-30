@@ -21,12 +21,8 @@ int main(int argc, char *argv[]) {
   if (command == "tokenize") {
     std::string file_contents = read_file_contents(argv[2]);
     Scanner scanner(file_contents);
-
-    if (!file_contents.empty()) {
-      scanner.scanToken();
-      return 1;
-    }
-    std::cout << "EOF  null" << std::endl; // Placeholder, remove this line
+    scanner.scanToken();
+    std::cout << "EOF  null" << std::endl;
   } else {
     std::cerr << "Unknown command: " << command << std::endl;
     return 1;
