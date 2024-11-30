@@ -1,9 +1,9 @@
+#include "scanner.h"
 #include <cstring>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
-
 std::string read_file_contents(const std::string &filename);
 
 int main(int argc, char *argv[]) {
@@ -20,9 +20,10 @@ int main(int argc, char *argv[]) {
 
   if (command == "tokenize") {
     std::string file_contents = read_file_contents(argv[2]);
+    Scanner scanner(file_contents);
 
     if (!file_contents.empty()) {
-      std::cerr << "Scanner not implemented" << std::endl;
+      scanner.scanToken();
       return 1;
     }
     std::cout << "EOF  null" << std::endl; // Placeholder, remove this line
