@@ -47,21 +47,27 @@ void Scanner::scanToken() {
     break;
   case ',':
     addToken(TokenType::COMMA);
+    std::cout << "COMMA , null" << std::endl;
     break;
   case '.':
     addToken(TokenType::DOT);
+    std::cout << "DOT . null" << std::endl;
     break;
   case '-':
     addToken(TokenType::MINUS);
+    std::cout << "MINUS - null" << std::endl;
     break;
   case '+':
     addToken(TokenType::PLUS);
+    std::cout << "PLUS + null" << std::endl;
     break;
   case ';':
     addToken(TokenType::SEMICOLON);
+    std::cout << "SEMICOLON ; null" << std::endl;
     break;
   case '*':
     addToken(TokenType::STAR);
+    std::cout << "STAR * null" << std::endl;
     break;
   default:
     // Handle unexpected characters here
