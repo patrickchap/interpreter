@@ -15,6 +15,17 @@ void Scanner::addToken(TokenType type, std::shared_ptr<void> literal) {
   tokens.push_back(Token(type, text, literal, line));
 }
 
+bool Scanner::isAtEnd() { return current >= source.size(); }
+
+std::vector<Token> Scanner::scanTokens() {
+  while (!isAtEnd()) {
+    start = current;
+    scanToken();
+  }
+
+  tokens.push_back(Token(TokenType::END_OF_FILE, "", nullptr, line));
+  return tokens;
+}
 void Scanner::scanToken() {
   char c = advance();
   switch (c) {
