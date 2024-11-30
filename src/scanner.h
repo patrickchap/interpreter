@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+namespace Lox {
+
 // Enum to define token types
 enum class TokenType {
   LEFT_PAREN,
@@ -101,4 +103,5 @@ public:
   const std::vector<Token> &getTokens() const;
 };
 
+} // namespace Lox
 #endif // SCANNER_H

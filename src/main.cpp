@@ -1,3 +1,4 @@
+#include "error.h"
 #include "scanner.h"
 #include <cstring>
 #include <fstream>
@@ -20,8 +21,10 @@ int main(int argc, char *argv[]) {
 
   if (command == "tokenize") {
     std::string file_contents = read_file_contents(argv[2]);
-    Scanner scanner(file_contents);
+    Lox::Scanner scanner(file_contents);
     scanner.scanTokens();
+    if (Lox::hadError)
+      return 65;
     std::cout << "EOF  null" << std::endl;
   } else {
     std::cerr << "Unknown command: " << command << std::endl;

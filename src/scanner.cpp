@@ -1,5 +1,7 @@
 #include "scanner.h"
 
+namespace Lox {
+
 Token::Token(TokenType type, const std::string &lexeme,
              std::shared_ptr<void> literal, int line)
     : type(type), lexeme(lexeme), literal(literal), line(line) {}
@@ -69,10 +71,15 @@ void Scanner::scanToken() {
     addToken(TokenType::STAR);
     std::cout << "STAR * null" << std::endl;
     break;
+  case '\n':
+    line++;
+    break;
   default:
-    // Handle unexpected characters here
+    std::cout << "[line" << line << "] Error: Unexpected character: " << c
+              << std::endl;
     break;
   }
 }
 
 const std::vector<Token> &Scanner::getTokens() const { return tokens; }
+} // namespace Lox
