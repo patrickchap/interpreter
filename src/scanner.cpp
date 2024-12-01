@@ -18,6 +18,12 @@ void Scanner::addToken(TokenType type, std::shared_ptr<void> literal) {
   tokens.push_back(Token(type, text, literal, line));
 }
 
+char Scanner::peek() {
+  if (isAtEnd()) {
+    return '\0';
+  }
+  return source[current];
+}
 bool Scanner::isAtEnd() { return current >= source.size(); }
 
 // check if the current character is the expected one
@@ -85,6 +91,21 @@ void Scanner::scanToken() {
     break;
   case '>':
     addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
+    break;
+  case '/':
+    if (match('/')) {
+      while (peek() != '\n' && !isAtEnd()) {
+        advance();
+      }
+    } else {
+      addToken(TokenType::SLASH);
+    }
+
+    break;
+  case ' ':
+  case '\r':
+  case '\t':
+    // Ignore whitespace.
     break;
   case '\n':
     line++;

@@ -142,6 +142,7 @@ private:
   // Adds a token with a literal value
   void addToken(TokenType type, std::shared_ptr<void> literal);
 
+  char peek();
   bool isAtEnd();
   bool match(char expected);
 
