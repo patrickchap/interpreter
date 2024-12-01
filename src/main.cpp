@@ -5,7 +5,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+
 std::string read_file_contents(const std::string &filename);
+bool Lox::hadError = false;
 
 int main(int argc, char *argv[]) {
   // Disable output buffering
@@ -23,9 +25,10 @@ int main(int argc, char *argv[]) {
     std::string file_contents = read_file_contents(argv[2]);
     Lox::Scanner scanner(file_contents);
     scanner.scanTokens();
-    if (Lox::hadError)
-      return 65;
     std::cout << "EOF  null" << std::endl;
+    if (Lox::hadError) {
+      return 65;
+    }
   } else {
     std::cerr << "Unknown command: " << command << std::endl;
     return 1;

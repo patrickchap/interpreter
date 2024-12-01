@@ -1,4 +1,5 @@
 #include "scanner.h"
+#include "error.h"
 
 namespace Lox {
 
@@ -75,8 +76,9 @@ void Scanner::scanToken() {
     line++;
     break;
   default:
-    std::cout << "[line" << line << "] Error: Unexpected character: " << c
-              << std::endl;
+    std::ostringstream ss;
+    ss << "Unexpected character: " << c;
+    error(line, ss.str());
     break;
   }
 }
