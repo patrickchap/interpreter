@@ -24,8 +24,11 @@ int main(int argc, char *argv[]) {
   if (command == "tokenize") {
     std::string file_contents = read_file_contents(argv[2]);
     Lox::Scanner scanner(file_contents);
-    scanner.scanTokens();
-    std::cout << "EOF  null" << std::endl;
+    auto tokens = scanner.scanTokens();
+    for (auto token : tokens) {
+      std::cout << token.toString() << std::endl;
+    }
+
     if (Lox::hadError) {
       return 65;
     }

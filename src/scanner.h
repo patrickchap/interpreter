@@ -3,6 +3,7 @@
 #define SCANNER_H
 
 #include <iostream>
+#include <map>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -70,6 +71,58 @@ public:
   std::string lexeme;
   std::shared_ptr<void> literal;
   int line;
+
+  std::string toString() {
+    std::ostringstream out;
+    out << token_string[type] << " " << lexeme << " " << "null";
+    return out.str();
+  }
+
+private:
+  std::map<TokenType, std::string> token_string = {
+      {TokenType::LEFT_PAREN, "LEFT_PAREN"},
+      {TokenType::RIGHT_PAREN, "RIGHT_PAREN"},
+      {TokenType::LEFT_BRACE, "LEFT_BRACE"},
+      {TokenType::RIGHT_BRACE, "RIGHT_BRACE"},
+      {TokenType::COMMA, "COMMA"},
+      {TokenType::DOT, "DOT"},
+      {TokenType::MINUS, "MINUS"},
+      {TokenType::PLUS, "PLUS"},
+      {TokenType::SEMICOLON, "SEMICOLON"},
+      {TokenType::SLASH, "SLASH"},
+      {TokenType::STAR, "STAR"},
+
+      {TokenType::BANG, "BANG"},
+      {TokenType::BANG_EQUAL, "BANG_EQUAL"},
+      {TokenType::EQUAL, "EQUAL"},
+      {TokenType::EQUAL_EQUAL, "EQUAL_EQUAL"},
+      {TokenType::GREATER, "GREATER"},
+      {TokenType::GREATER_EQUAL, "GREATER_EQUAL"},
+      {TokenType::LESS, "LESS"},
+      {TokenType::LESS_EQUAL, "LESS_EQUAL"},
+
+      {TokenType::IDENTIFIER, "IDENTIFIER"},
+      {TokenType::STRING, "STRING"},
+      {TokenType::NUMBER, "NUMBER"},
+
+      {TokenType::AND, "AND"},
+      {TokenType::CLASS, "CLASS"},
+      {TokenType::ELSE, "ELSE"},
+      {TokenType::FALSE, "FALSE"},
+      {TokenType::FUN, "FUN"},
+      {TokenType::FOR, "FOR"},
+      {TokenType::IF, "IF"},
+      {TokenType::NIL, "NIL"},
+      {TokenType::OR, "OR"},
+      {TokenType::PRINT, "PRINT"},
+      {TokenType::RETURN, "RETURN"},
+      {TokenType::SUPER, "SUPER"},
+      {TokenType::THIS, "THIS"},
+      {TokenType::TRUE, "TRUE"},
+      {TokenType::VAR, "VAR"},
+      {TokenType::WHILE, "WHILE"},
+
+      {TokenType::END_OF_FILE, "EOF"}};
 };
 
 class Scanner {
@@ -90,6 +143,7 @@ private:
   void addToken(TokenType type, std::shared_ptr<void> literal);
 
   bool isAtEnd();
+  bool match(char expected);
 
 public:
   // Constructor to initialize the scanner with the source code

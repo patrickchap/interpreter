@@ -20,6 +20,18 @@ void Scanner::addToken(TokenType type, std::shared_ptr<void> literal) {
 
 bool Scanner::isAtEnd() { return current >= source.size(); }
 
+// check if the current character is the expected one
+bool Scanner::match(char expected) {
+  if (isAtEnd()) {
+    return false;
+  }
+  if (source[current] != expected) {
+    return false;
+  }
+  current++;
+  return true;
+}
+
 std::vector<Token> Scanner::scanTokens() {
   while (!isAtEnd()) {
     start = current;
@@ -34,43 +46,45 @@ void Scanner::scanToken() {
   switch (c) {
   case '(':
     addToken(TokenType::LEFT_PAREN);
-    std::cout << "LEFT_PAREN ( null" << std::endl;
     break;
   case ')':
     addToken(TokenType::RIGHT_PAREN);
-    std::cout << "RIGHT_PAREN ) null" << std::endl;
     break;
   case '{':
     addToken(TokenType::LEFT_BRACE);
-    std::cout << "LEFT_BRACE { null" << std::endl;
     break;
   case '}':
     addToken(TokenType::RIGHT_BRACE);
-    std::cout << "RIGHT_BRACE } null" << std::endl;
     break;
   case ',':
     addToken(TokenType::COMMA);
-    std::cout << "COMMA , null" << std::endl;
     break;
   case '.':
     addToken(TokenType::DOT);
-    std::cout << "DOT . null" << std::endl;
     break;
   case '-':
     addToken(TokenType::MINUS);
-    std::cout << "MINUS - null" << std::endl;
     break;
   case '+':
     addToken(TokenType::PLUS);
-    std::cout << "PLUS + null" << std::endl;
     break;
   case ';':
     addToken(TokenType::SEMICOLON);
-    std::cout << "SEMICOLON ; null" << std::endl;
     break;
   case '*':
     addToken(TokenType::STAR);
-    std::cout << "STAR * null" << std::endl;
+    break;
+  case '!':
+    addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
+    break;
+  case '=':
+    addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
+    break;
+  case '<':
+    addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
+    break;
+  case '>':
+    addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
     break;
   case '\n':
     line++;
