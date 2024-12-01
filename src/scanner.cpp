@@ -18,6 +18,24 @@ void Scanner::addToken(TokenType type, std::shared_ptr<void> literal) {
   tokens.push_back(Token(type, text, literal, line));
 }
 
+void Scanner::string() {
+  while (peek() != '"' && !isAtEnd()) {
+    if (peek() == '\n') {
+      line++;
+    }
+    advance();
+  }
+
+  if (isAtEnd()) {
+    error(line, "Unterminated string.");
+    return;
+  }
+  // handle second '"'
+  advance();
+  std::string value = source.substr(start + 1, current - start - 2);
+  addToken(TokenType::STRING, std::make_shared<std::string>(value));
+}
+
 char Scanner::peek() {
   if (isAtEnd()) {
     return '\0';
@@ -102,6 +120,10 @@ void Scanner::scanToken() {
     }
 
     break;
+  case '"':
+    string();
+    break;
+
   case ' ':
   case '\r':
   case '\t':

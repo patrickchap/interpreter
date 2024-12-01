@@ -74,7 +74,12 @@ public:
 
   std::string toString() {
     std::ostringstream out;
-    out << token_string[type] << " " << lexeme << " " << "null";
+    out << token_string[type] << " " << (lexeme.empty() ? "" : lexeme);
+    if (literal) {
+      out << " " << *std::static_pointer_cast<std::string>(literal);
+    } else {
+      out << " null";
+    }
     return out.str();
   }
 
@@ -154,6 +159,7 @@ public:
   std::vector<Token> scanTokens();
   // Scans the next token and adds it to the token list
   void scanToken();
+  void string();
 
   // Returns the list of tokens generated so far
   const std::vector<Token> &getTokens() const;
